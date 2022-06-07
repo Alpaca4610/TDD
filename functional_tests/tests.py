@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
 from django.test import LiveServerTestCase
 from selenium.common.exceptions import WebDriverException
 
@@ -33,7 +32,7 @@ class NewVisitorTest(LiveServerTestCase):
         #to check out its homepage
         self.browser.get(self.live_server_url)
 
-
+        print(self.live_server_url)
         #she notices the page title and header mention to-do lists
         self.assertIn("To-Do", self.browser.title)
         header_text = self.browser.find_element_by_tag_name("h1").text
@@ -56,7 +55,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         #There is still a text box inviting her to add another item. She
         #enters "Use peacock feathers to make a fly" (Edith is very methodical)
-        inputbox = self.browser.find_element_by_id("id_new_item")
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys("Use peacock feathers to make a fly")
         inputbox.send_keys(Keys.ENTER)
         
@@ -83,6 +82,9 @@ class NewVisitorTest(LiveServerTestCase):
 
         #She notices that her list has a unique URL
         edith_list_url = self.browser.current_url
+
+        print(23333333333)
+        print(edith_list_url)
         self.assertRegex(edith_list_url, "/lists/.+")
 
         #Now a new user, Francis, comes along to the site.
@@ -103,7 +105,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id("id_new_item")
         inputbox.send_keys("Buy milk")
         inputbox.send_keys(Keys.ENTER)
-        self.check_for_row_in_list_table("1: Buy milk")
+        self.wait_for_row_in_list_table("1: Buy milk")
 
         #Francis gets his own unique URL
         francis_list_url = self.browser.current_url
