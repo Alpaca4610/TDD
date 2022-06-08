@@ -3,7 +3,8 @@ Description=Gunicorn server for SITENAME
 
 [Service]
 Restart=on-failure
-User=elspeth WorkingDirectory=/home/alpaca/sites/SITENAME/source 
+User=alpaca 
+WorkingDirectory=/home/alpaca/sites/SITENAME/source 
 ExecStart=/home/alpaca/sites/SITENAME/virtualenv/bin/gunicorn  bind unix:/tmp/SITENAME.socket superlists.wsgi:application
     
 [Install]
